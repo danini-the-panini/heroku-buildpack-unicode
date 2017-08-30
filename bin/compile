@@ -1,8 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-UNICODE_OUTPUT_FILENAME=UnicodeData.txt
-UNICODE_OUTPUT_BASE_PATH=/usr/share/unicode
-UNICODE_OUTPUT_PATH=$UNICODE_OUTPUT_BASE_PATH/$UNICODE_OUTPUT_FILENAME
-mkdir -p $UNICODE_OUTPUT_BASE_PATH
-curl http://unicode.org/Public/UNIDATA/UnicodeData.txt > $UNICODE_OUTPUT_PATH || curl ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt > $UNICODE_OUTPUT_PATH
+BP_DIR=$(cd $(dirname $0); cd ..; pwd)
+BUILD_DIR=$1
+UNICODE_PATH="$BUILD_DIR/.heroku/unicode/UnicodeData.txt"
+
+touch "$BP_DIR/export"
+mkdir -p "$BUILD_DIR/.heroku/unicode"
+echo "export NODE_UNICODETABLE_UNICODEDATA_TXT=\"$UNICODE_PATH\"" >> $BP_DIR/export
+
+curl http://unicode.org/Public/UNIDATA/UnicodeData.txt > $UNICODE_PATH || curl ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt > $UNICODE_PATH
 exit 0
