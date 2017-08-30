@@ -1,0 +1,5 @@
+#!/bin/sh
+
+UNICODE_OUTPUT_PATH=/usr/share/unicode/UnicodeData.txt
+curl http://unicode.org/Public/UNIDATA/UnicodeData.txt > $UNICODE_OUTPUT_PATH || curl ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt > $UNICODE_OUTPUT_PATH
+exit 0
